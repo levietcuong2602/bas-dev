@@ -1,0 +1,190 @@
+version: "3"
+services:
+
+  bootnode:
+    image: ankrnetwork/bas-template-bsc:devel
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--networkid=17243"
+      - "--nodekeyhex=633ab917d09441de38ae9251e79ced41df39a1c338842b826c18fb1773246e18"
+      - "--syncmode=full"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./datadir/bootnode:/datadir/geth"
+    ports:
+      - "30303:30303"
+    restart: always
+
+  validator_1:
+    image: ankrnetwork/bas-template-bsc:devel
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--mine"
+      - "--password=/datadir/password.txt"
+      - "--allow-insecure-unlock"
+      - "--unlock=0x3b40a5561aa410ab7e4ca2990730cc58f204dcd4"
+      - "--miner.etherbase=0x3b40a5561aa410ab7e4ca2990730cc58f204dcd4"
+      - "--bootnodes=enode://5c8e90050fabb7e14e4921dc107caf533140112245e7a231d0edc49861cd779760ad4804e7034952a5cc79422fa9d31c54e9a6141fb4995af7a6bfce7a39140f@bootnode:30303"
+      - "--gcmode=archive"
+      - "--syncmode=full"
+      - "--networkid=17243"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./keystore:/datadir/keystore"
+      - "./genesis/password.txt:/datadir/password.txt"
+      - "./datadir/validator_1:/datadir/geth"
+    restart: always
+  validator_2:
+    image: ankrnetwork/bas-template-bsc:devel
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--mine"
+      - "--password=/datadir/password.txt"
+      - "--allow-insecure-unlock"
+      - "--unlock=0x39891be2458c220c1260f3acb0f2bbd5318ddb45"
+      - "--miner.etherbase=0x39891be2458c220c1260f3acb0f2bbd5318ddb45"
+      - "--bootnodes=enode://5c8e90050fabb7e14e4921dc107caf533140112245e7a231d0edc49861cd779760ad4804e7034952a5cc79422fa9d31c54e9a6141fb4995af7a6bfce7a39140f@bootnode:30303"
+      - "--gcmode=archive"
+      - "--syncmode=full"
+      - "--networkid=17243"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./keystore:/datadir/keystore"
+      - "./genesis/password.txt:/datadir/password.txt"
+      - "./datadir/validator_2:/datadir/geth"
+    restart: always
+  validator_3:
+    image: ankrnetwork/bas-template-bsc:devel
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--mine"
+      - "--password=/datadir/password.txt"
+      - "--allow-insecure-unlock"
+      - "--unlock=0x33b199e11850afced36535d69b59072bde152673"
+      - "--miner.etherbase=0x33b199e11850afced36535d69b59072bde152673"
+      - "--bootnodes=enode://5c8e90050fabb7e14e4921dc107caf533140112245e7a231d0edc49861cd779760ad4804e7034952a5cc79422fa9d31c54e9a6141fb4995af7a6bfce7a39140f@bootnode:30303"
+      - "--gcmode=archive"
+      - "--syncmode=full"
+      - "--networkid=17243"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./keystore:/datadir/keystore"
+      - "./genesis/password.txt:/datadir/password.txt"
+      - "./datadir/validator_3:/datadir/geth"
+    restart: always
+  # validator_4:
+  #   image: ankrnetwork/bas-template-bsc:devel
+  #   command:
+  #     - "geth"
+  #     - "--datadir=/datadir"
+  #     - "--genesis=/datadir/genesis.json"
+  #     - "--mine"
+  #     - "--password=/datadir/password.txt"
+  #     - "--allow-insecure-unlock"
+  #     - "--unlock=0x49c0f7c8c11a4c80dc6449efe1010bb166818da8"
+  #     - "--miner.etherbase=0x49c0f7c8c11a4c80dc6449efe1010bb166818da8"
+  #     - "--bootnodes=enode://5c8e90050fabb7e14e4921dc107caf533140112245e7a231d0edc49861cd779760ad4804e7034952a5cc79422fa9d31c54e9a6141fb4995af7a6bfce7a39140f@bootnode:30303"
+  #     - "--gcmode=archive"
+  #     - "--syncmode=full"
+  #     - "--networkid=17243"
+  #   volumes:
+  #     - "./genesis.json:/datadir/genesis.json"
+  #     - "./keystore:/datadir/keystore"
+  #     - "./genesis/password.txt:/datadir/password.txt"
+  #     - "./datadir/validator_4:/datadir/geth"
+  #   restart: always
+  # validator_5:
+  #   image: ankrnetwork/bas-template-bsc:devel
+  #   command:
+  #     - "geth"
+  #     - "--datadir=/datadir"
+  #     - "--genesis=/datadir/genesis.json"
+  #     - "--mine"
+  #     - "--password=/datadir/password.txt"
+  #     - "--allow-insecure-unlock"
+  #     - "--unlock=0x8e1ea6eaa09c3b40f4a51fcd056a031870a0549a"
+  #     - "--miner.etherbase=0x8e1ea6eaa09c3b40f4a51fcd056a031870a0549a"
+  #     - "--bootnodes=enode://5c8e90050fabb7e14e4921dc107caf533140112245e7a231d0edc49861cd779760ad4804e7034952a5cc79422fa9d31c54e9a6141fb4995af7a6bfce7a39140f@bootnode:30303"
+  #     - "--gcmode=archive"
+  #     - "--syncmode=full"
+  #     - "--networkid=17243"
+  #   volumes:
+  #     - "./genesis.json:/datadir/genesis.json"
+  #     - "./keystore:/datadir/keystore"
+  #     - "./genesis/password.txt:/datadir/password.txt"
+  #     - "./datadir/validator_5:/datadir/geth"
+  #   restart: always
+
+  rpc:
+    image: ankrnetwork/bas-template-bsc:devel
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--bootnodes=enode://5c8e90050fabb7e14e4921dc107caf533140112245e7a231d0edc49861cd779760ad4804e7034952a5cc79422fa9d31c54e9a6141fb4995af7a6bfce7a39140f@bootnode:30303"
+      - "--networkid=17243"
+      - "--http"
+      - "--http.addr=0.0.0.0"
+      - "--http.api=eth,net,web3,debug,trace,txpool"
+      - "--http.port=8545"
+      - "--http.corsdomain=*"
+      - "--http.vhosts=*"
+      - "--ws"
+      - "--ws.addr=0.0.0.0"
+      - "--ws.api=eth,net,web3,debug,trace,txpool"
+      - "--ws.port=8546"
+      - "--ws.origins=*"
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./keystore:/datadir/keystore"
+      - "./genesis/password.txt:/datadir/password.txt"
+      - "./datadir/rpc:/datadir/geth"
+    restart: always
+
+  faucet:
+    image: ankrnetwork/bas-template-bsc:devel
+    command:
+      - "faucet"
+      - "--genesis=/datadir/genesis.json"
+      - "--bootnodes=enode://5c8e90050fabb7e14e4921dc107caf533140112245e7a231d0edc49861cd779760ad4804e7034952a5cc79422fa9d31c54e9a6141fb4995af7a6bfce7a39140f@bootnode:30303"
+      - "--network=17243"
+      - "--account.json=/datadir/keystore/UTC--2022-07-25T01-38-21.628Z--f2b6d1f1b74ab116a56ceb01bf48c40e33836950"
+      - "--account.pass=/datadir/password.txt"
+      - "--rpcapi=ws://rpc:8546"
+      - "--noauth=true"
+      - "--faucet.name=BAS"
+      - "--faucet.amount=10"
+      - "--faucet.tiers=5"
+    ports:
+      - "3000:8080"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./keystore:/datadir/keystore"
+      - "./genesis/password.txt:/datadir/password.txt"
+    restart: always
+
+  staking-ui:
+    image: ankrnetwork/bas-staking-ui:devel
+    environment:
+      REACT_APP_ENVIRONMENT: "env"
+      CHAIN_ID: ${CHAIN_ID}
+      CHAIN_NAME: "BAS devnet"
+      CHAIN_RPC: "http://${DOMAIN_NAME}:8545"
+      EXPLORER_HOME_URL: "http://${DOMAIN_NAME}:4000/"
+      EXPLORER_TX_URL: "http://${DOMAIN_NAME}:4000/tx/{tx}"
+      EXPLORER_ADDRESS_URL: "http://${DOMAIN_NAME}:4000/address/{address}"
+      EXPLORER_BLOCK_URL: "http://${DOMAIN_NAME}:4000/block/{block}"
+    ports:
+      - "3001:80"
+    restart: always
